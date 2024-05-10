@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Outlet } from 'react-router-dom'; // 引入Routes
+import { Outlet, useNavigate } from 'react-router-dom'; 
 import { Breadcrumb, Layout, Menu, theme } from 'antd';
 import LayoutHeader from './layoutHeader';
 import { menuItem } from '../../menu';
@@ -8,11 +8,17 @@ const { Content, Sider } = Layout;
 
 const AppLayout: React.FC = () => {
 
+  const navigate = useNavigate();
+
   let [selectKey, setSelectKey] = useState('');
 
   useEffect(() => {
     setSelectKey(window.location.pathname);
   })
+
+  const menuItemClickHandler = ({ key } : {key: string}) => {
+    navigate(key);
+  }
 
   const {
     token: { colorBgContainer, borderRadiusLG },
@@ -28,6 +34,7 @@ const AppLayout: React.FC = () => {
             selectedKeys={[selectKey]}
             style={{ height: '100%', borderRight: 0 }}
             items={menuItem}
+            onClick={menuItemClickHandler}
           />
         </Sider>
         <Layout style={{ padding: '0 24px 24px' }}>

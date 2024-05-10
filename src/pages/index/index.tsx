@@ -1,13 +1,12 @@
 import { useEffect } from "react";
 import AppLayout from "../../components/Layout";
-import { useAppDispatch, useAppSelector } from "../../hooks/store";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useAppSelector } from "../../hooks/store";
+import { useNavigate } from "react-router-dom";
 
 const Index: React.FC = () => {
 
     const navigate = useNavigate();
 
-    const dispatch = useAppDispatch();
     const token = useAppSelector((state) => state.token.token);
 
     useEffect(() => {
@@ -15,11 +14,11 @@ const Index: React.FC = () => {
         const currentPath = window.location.pathname;
         console.log(currentPath);
         
-        // const whihtUrl = ['/login','/register']
+        const whihtUrl = ['/login','/register']
 
-        // if (!token) {
-        //     navigate('/login')
-        // }
+        if (!token && whihtUrl.indexOf(currentPath) === -1) {
+            navigate('/login')
+        }
         
     }, []);
 
