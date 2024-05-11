@@ -1,8 +1,9 @@
 import { createBrowserRouter } from "react-router-dom";
 import Index from "../pages/index";
-import Login from "../pages/login";
-import UserManager from "../pages/admin/userManager/userManager";
-import Register from "../pages/register";
+import Login from "../pages/login/login";
+import UserManager from "../pages/admin/userManager";
+import Register from "../pages/register/register";
+import SysManager from "../pages/admin/sysManager";
 
 export const router = createBrowserRouter([
   {
@@ -10,9 +11,12 @@ export const router = createBrowserRouter([
     element: <Index></Index>,
     children: [
       {
-        index: true,
         path: '/userManager',
         element: <UserManager></UserManager>
+      },
+      {
+        path: '/sysManager',
+        element: <SysManager></SysManager>
       }
     ]
   },

@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom'; 
-import { Breadcrumb, Layout, Menu, theme } from 'antd';
+import { Breadcrumb, Layout, Menu, MenuProps, theme } from 'antd';
 import LayoutHeader from './layoutHeader';
 import { menuItem } from '../../menu';
+import BreadcrumbComponent from './breadcrumbComponent';
 
 const { Content, Sider } = Layout;
 
@@ -10,15 +11,16 @@ const AppLayout: React.FC = () => {
 
   const navigate = useNavigate();
 
-  let [selectKey, setSelectKey] = useState('');
+  const [selectKey, setSelectKey] = useState('');
 
   useEffect(() => {
     setSelectKey(window.location.pathname);
-  })
+  }, [])
 
-  const menuItemClickHandler = ({ key } : {key: string}) => {
-    navigate(key);
-  }
+  const menuItemClickHandler: MenuProps['onClick'] = (e) => {
+    setSelectKey(e.key);
+    navigate(e.key);
+  };
 
   const {
     token: { colorBgContainer, borderRadiusLG },
@@ -38,11 +40,9 @@ const AppLayout: React.FC = () => {
           />
         </Sider>
         <Layout style={{ padding: '0 24px 24px' }}>
-          <Breadcrumb style={{ margin: '16px 0' }}>
-            <Breadcrumb.Item>Home</Breadcrumb.Item>
-            <Breadcrumb.Item>List</Breadcrumb.Item>
-            <Breadcrumb.Item>App</Breadcrumb.Item>
-          </Breadcrumb>
+          
+          <BreadcrumbComponent/>
+
           <Content
             style={{
               padding: 24,
